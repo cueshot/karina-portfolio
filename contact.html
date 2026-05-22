@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Karina</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='16' y='24' font-family='Georgia%2C serif' font-size='22' fill='%23fff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=Pinyon+Script&family=Viaoda+Libre&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 200;
+      padding: 28px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Viaoda Libre', serif;
+      font-size: 1.35rem;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 44px;
+    }
+
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover  { opacity: 0.5; }
+    .nav-links a.active { opacity: 0.4; border-bottom: 1px solid rgba(255,255,255,0.45); padding-bottom: 3px; pointer-events: none; }
+
+    /* hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 300;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: #ffffff;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ── Page header ── */
+    .page-header {
+      padding: 160px 56px 72px;
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 26px;
+    }
+
+    .page-header h1 {
+      font-family: 'Viaoda Libre', serif;
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 22px;
+    }
+
+    .page-header .tagline {
+      font-family: 'Pinyon Script', cursive;
+      font-style: italic;
+      font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+      color: rgba(255,255,255,0.62);
+    }
+
+    .header-rule {
+      width: 1px;
+      height: 56px;
+      background: rgba(255,255,255,0.15);
+      margin: 52px auto 0;
+    }
+
+    /* ── Form area ── */
+    .contact-wrap {
+      flex: 1;
+      padding: 72px 24px 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* sr-only for accessible labels */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ── Form ── */
+    #contactForm {
+      width: 100%;
+      max-width: 560px;
+      transition: opacity 0.4s ease;
+    }
+
+    .field {
+      position: relative;
+      margin-bottom: 52px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.22);
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 12px 0;
+      outline: none;
+      display: block;
+      transition: border-bottom-color 0.3s ease;
+      caret-color: #ffffff;
+    }
+
+    .field textarea {
+      resize: none;
+      min-height: 140px;
+      line-height: 1.8;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(255,255,255,0.28);
+      font-weight: 300;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-bottom-color: rgba(255,255,255,0.85);
+    }
+
+    /* animated underline on focus */
+    .field::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #ffffff;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .field:focus-within::after { width: 100%; }
+
+    /* ── Submit button ── */
+    .submit-btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 18px 0;
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.28s ease, color 0.28s ease;
+    }
+
+    .submit-btn:hover {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    .submit-btn:focus-visible {
+      outline: 1px solid rgba(255,255,255,0.6);
+      outline-offset: 4px;
+    }
+
+    /* ── Thank-you state ── */
+    .thank-you {
+      width: 100%;
+      max-width: 560px;
+      text-align: center;
+      padding: 60px 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .thank-you.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .thank-you-main {
+      font-family: 'Pinyon Script', cursive;
+      font-style: italic;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .thank-you-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* ── Instagram link ── */
+    .social-wrap {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .social-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .instagram-link {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
+
+    .instagram-link:hover { color: #ffffff; }
+
+    .instagram-link svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.09);
+      padding: 40px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-name {
+      font-family: 'Viaoda Libre', serif;
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    footer p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 22px 24px; }
+
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 72%;
+        max-width: 300px;
+        height: 100vh;
+        background: #000000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        border-left: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .nav-links.open { right: 0; }
+      .nav-links a    { font-size: 0.9rem; letter-spacing: 0.22em; }
+
+      .page-header { padding: 130px 28px 56px; }
+
+      .contact-wrap { padding: 56px 28px 100px; }
+
+      .field { margin-bottom: 44px; }
+
+      footer {
+        padding: 36px 28px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.in-view { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Scroll to top ── */
+    .scroll-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, background 0.25s ease, transform 0.25s ease;
+      z-index: 100;
+    }
+
+    .scroll-top svg {
+      width: 14px;
+      height: 14px;
+      stroke: #000000;
+      transition: stroke 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .scroll-top.visible       { opacity: 1; pointer-events: auto; }
+    .scroll-top:hover         { background: #000000; transform: translateY(-3px); }
+    .scroll-top:hover svg     { stroke: #ffffff; }
+    .scroll-top:focus-visible { outline: 1px solid rgba(255,255,255,0.5); outline-offset: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">Karina</a>
+    <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"    onclick="closeNav()">Home</a></li>
+      <li><a href="gallery.html"  onclick="closeNav()">Gallery</a></li>
+      <li><a href="about.html"    onclick="closeNav()">About</a></li>
+      <li><a href="contact.html"  onclick="closeNav()" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <p class="section-label">Say Hello</p>
+    <h1>Contact</h1>
+    <p class="tagline">Let&rsquo;s Tell Your Story</p>
+    <div class="header-rule"></div>
+  </header>
+
+  <!-- Form area -->
+  <main class="contact-wrap">
+
+    <!-- Contact form -->
+    <form id="contactForm" novalidate>
+
+      <div class="field">
+        <label class="sr-only" for="fname">Your name</label>
+        <input
+          type="text"
+          id="fname"
+          name="name"
+          placeholder="Your name"
+          autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label class="sr-only" for="femail">Email address</label>
+        <input
+          type="email"
+          id="femail"
+          name="email"
+          placeholder="Email address"
+          autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label class="sr-only" for="fmessage">Your message</label>
+        <textarea
+          id="fmessage"
+          name="message"
+          placeholder="Tell me about your day — venue, date, what matters most to you."
+          rows="6"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Send Message</button>
+
+    </form>
+
+    <!-- Thank-you message (hidden until submit) -->
+    <div class="thank-you" id="thankYou" aria-live="polite" aria-atomic="true">
+      <p class="thank-you-main">Thank you.</p>
+      <p class="thank-you-sub">I&rsquo;ll be in touch soon.</p>
+    </div>
+
+    <!-- Instagram -->
+    <div class="social-wrap">
+      <p class="social-label">Follow along</p>
+      <!-- Replace href with your actual Instagram URL -->
+      <a
+        class="instagram-link"
+        href="#"
+        aria-label="Karina on Instagram"
+        rel="noopener noreferrer">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.6" cy="6.4" r="0.7" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-name">Karina</span>
+    <p>hello@karinaphoto.com &nbsp;&middot;&nbsp; New York, NY</p>
+    <p>&copy; 2026 Karina Photography</p>
+  </footer>
+
+  <script>
+    // ── Form submit ──
+    const form    = document.getElementById('contactForm');
+    const thankYou = document.getElementById('thankYou');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.opacity = '0';
+      form.style.pointerEvents = 'none';
+      setTimeout(() => {
+        form.style.display = 'none';
+        thankYou.classList.add('visible');
+      }, 380);
+    });
+
+    // ── Mobile nav ──
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open');
+    });
+
+    function closeNav() {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('open') &&
+          !navLinks.contains(e.target) &&
+          !navToggle.contains(e.target)) closeNav();
+    });
+
+    // ── Scroll reveal ──
+    (function () {
+      const els = [...document.querySelectorAll(
+        '.section-label, .page-header h1, .page-header .tagline, .header-rule, .field, .submit-btn, .social-wrap'
+      )];
+      els.forEach(el => el.classList.add('reveal'));
+
+      document.querySelectorAll('.contact-wrap .field, .contact-wrap .submit-btn').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.1}s`;
+      });
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach(el => io.observe(el));
+    }());
+  </script>
+
+  <button class="scroll-top" id="scrollTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script>
+    // ── Scroll to top ──
+    (function () {
+      const btn = document.getElementById('scrollTop');
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }());
+  </script>
+
+</body>
+</html>
