@@ -456,9 +456,39 @@
     .scroll-top:hover         { background: #000000; transform: translateY(-3px); }
     .scroll-top:hover svg     { stroke: #ffffff; }
     .scroll-top:focus-visible { outline: 1px solid rgba(255,255,255,0.5); outline-offset: 4px; }
+
+    /* ── Watermark ── */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      z-index: 50;
+      pointer-events: none;
+      user-select: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+      white-space: nowrap;
+      writing-mode: vertical-rl;
+    }
+
+    .watermark-left  { left: 56px;  transform: translateY(-50%) rotate(180deg); }
+    .watermark-right { right: 56px; transform: translateY(-50%); }
+
+    @media (max-width: 768px) {
+      .watermark { font-size: 0.8rem; letter-spacing: 0.3em; }
+      .watermark-left  { left: 2px; }
+      .watermark-right { right: 2px; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Watermark -->
+  <div class="watermark watermark-left">THIS IS A DEMO</div>
+  <div class="watermark watermark-right">THIS IS A DEMO</div>
 
   <!-- Navigation -->
   <nav>
