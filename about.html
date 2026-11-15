@@ -10,383 +10,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=Pinyon+Script&family=Viaoda+Libre&display=swap" rel="stylesheet">
 
-  <style>
-    /* ── Reset ── */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background-color: #000000;
-      color: #ffffff;
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ── Navigation ── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 200;
-      padding: 28px 56px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-logo {
-      font-family: 'Viaoda Libre', serif;
-      font-size: 1.35rem;
-      color: #ffffff;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 44px;
-    }
-
-    .nav-links a {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: #ffffff;
-      text-decoration: none;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      transition: opacity 0.2s;
-    }
-
-    .nav-links a:hover  { opacity: 0.5; }
-    .nav-links a.active { opacity: 0.4; border-bottom: 1px solid rgba(255,255,255,0.45); padding-bottom: 3px; pointer-events: none; }
-
-    /* hamburger */
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 300;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 1px;
-      background: #ffffff;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-
-    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    /* ── About Section ── */
-    .about-section {
-      padding: 168px 56px 100px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      column-gap: 96px;
-      align-items: start;
-    }
-
-    /* ── Headshot ── */
-    .headshot-wrap {
-      position: relative;
-      width: 280px;
-      flex-shrink: 0;
-    }
-
-    /* Replace the src with your own headshot image */
-    .headshot {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
-      filter: grayscale(100%);
-      display: block;
-    }
-
-    /* ── Bio ── */
-    .section-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
-      margin-bottom: 22px;
-    }
-
-    .bio-name {
-      font-family: 'Viaoda Libre', serif;
-      font-size: clamp(2.8rem, 5vw, 4rem);
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: 0.02em;
-      margin-bottom: 36px;
-    }
-
-    .bio-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.02rem;
-      font-weight: 300;
-      line-height: 1.92;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .bio-text p + p {
-      margin-top: 28px;
-    }
-
-    /* ── Divider ── */
-    .divider {
-      width: 1px;
-      height: 88px;
-      background: rgba(255,255,255,0.14);
-      margin: 100px auto;
-    }
-
-    /* ── Testimonials ── */
-    .testimonials {
-      padding: 0 56px 140px;
-    }
-
-    .testimonial {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .testimonial + .testimonial {
-      margin-top: 96px;
-    }
-
-    .testimonial-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
-      margin-bottom: 52px;
-    }
-
-    .testimonial-quote {
-      font-family: 'Pinyon Script', cursive;
-      font-style: italic;
-      font-size: clamp(2rem, 4.5vw, 3.6rem);
-      line-height: 1.4;
-      color: rgba(255,255,255,0.92);
-      margin-bottom: 36px;
-    }
-
-    .testimonial-attr {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 300;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .testimonial-separator {
-      width: 32px;
-      height: 1px;
-      background: rgba(255,255,255,0.2);
-      margin: 0 auto 96px;
-    }
-
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.09);
-      padding: 40px 56px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-name {
-      font-family: 'Viaoda Libre', serif;
-      font-size: 1.25rem;
-      color: rgba(255,255,255,0.55);
-    }
-
-    footer p {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .about-grid {
-        grid-template-columns: 240px 1fr;
-        column-gap: 60px;
-      }
-
-      .headshot-wrap,
-      .headshot { width: 240px; height: 240px; }
-    }
-
-    @media (max-width: 768px) {
-      nav { padding: 22px 24px; }
-
-      .nav-toggle { display: flex; }
-
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 72%;
-        max-width: 300px;
-        height: 100vh;
-        background: #000000;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 48px;
-        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        border-left: 1px solid rgba(255,255,255,0.07);
-      }
-
-      .nav-links.open { right: 0; }
-      .nav-links a    { font-size: 0.9rem; letter-spacing: 0.22em; }
-
-      .about-section {
-        padding: 130px 28px 80px;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        row-gap: 52px;
-      }
-
-      .headshot-wrap {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
-
-      .headshot {
-        width: 220px;
-        height: 220px;
-      }
-
-      .divider { margin: 72px auto; }
-
-      .testimonials { padding: 0 28px 100px; }
-
-      .testimonial-separator { margin-bottom: 72px; }
-
-      footer {
-        padding: 36px 28px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .headshot { width: 180px; height: 180px; }
-    }
-
-    /* ── Scroll reveal ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .reveal.in-view { opacity: 1; transform: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-    }
-
-    /* ── Scroll to top ── */
-    .scroll-top {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 1px solid #ffffff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease, background 0.25s ease, transform 0.25s ease;
-      z-index: 100;
-    }
-
-    .scroll-top svg {
-      width: 14px;
-      height: 14px;
-      stroke: #000000;
-      transition: stroke 0.25s ease;
-      flex-shrink: 0;
-    }
-
-    .scroll-top.visible       { opacity: 1; pointer-events: auto; }
-    .scroll-top:hover         { background: #000000; transform: translateY(-3px); }
-    .scroll-top:hover svg     { stroke: #ffffff; }
-    .scroll-top:focus-visible { outline: 1px solid rgba(255,255,255,0.5); outline-offset: 4px; }
-
-    /* ── Watermark ── */
-    .watermark {
-      position: fixed;
-      top: 50%;
-      z-index: 50;
-      pointer-events: none;
-      user-select: none;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.25);
-      white-space: nowrap;
-      writing-mode: vertical-rl;
-    }
-
-    .watermark-left  { left: 56px;  transform: translateY(-50%) rotate(180deg); }
-    .watermark-right { right: 56px; transform: translateY(-50%); }
-
-    @media (max-width: 768px) {
-      .watermark { font-size: 0.8rem; letter-spacing: 0.3em; }
-      .watermark-left  { left: 2px; }
-      .watermark-right { right: 2px; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+  <script src="js/main.js"></script>
 </head>
-<body>
+<body class="page-about">
 
   <!-- Watermark -->
   <div class="watermark watermark-left">THIS IS A DEMO</div>
@@ -399,10 +27,10 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html"         onclick="closeNav()">Home</a></li>
-      <li><a href="gallery.html"       onclick="closeNav()">Gallery</a></li>
-      <li><a href="about.html"         onclick="closeNav()" class="active">About</a></li>
-      <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
@@ -411,7 +39,7 @@
     <div class="about-grid">
 
       <!-- Headshot -->
-      <div class="headshot-wrap">
+      <div class="headshot-wrap reveal">
         <!-- Replace with your own portrait photo -->
         <img
           class="headshot"
@@ -421,10 +49,10 @@
 
       <!-- Bio -->
       <div class="bio">
-        <p class="section-label">The Photographer</p>
-        <h1 class="bio-name">Karina</h1>
+        <p class="section-label reveal">The Photographer</p>
+        <h1 class="bio-name reveal">Karina</h1>
         <div class="bio-text">
-          <p>
+          <p class="reveal">
             Born and raised in New York, I came to wedding photography through a love of film
             and a deep fascination with human connection. After years spent shooting portraits
             and editorial work across the city, I found my calling on the wedding day — where
@@ -432,7 +60,7 @@
             I have been photographing weddings in New York, across Europe, and throughout
             the American countryside.
           </p>
-          <p>
+          <p class="reveal">
             My approach is quiet and observant. I believe the most powerful photographs happen
             in the spaces between — the breath before the vows, the hand held tightly beneath
             the table, the way two people look at each other when they think no one is watching.
@@ -445,12 +73,12 @@
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider reveal"></div>
 
   <!-- Testimonials -->
   <section class="testimonials">
 
-    <div class="testimonial">
+    <div class="testimonial reveal">
       <p class="testimonial-label">Kind Words</p>
       <blockquote class="testimonial-quote">
         &ldquo;Karina has a gift for disappearing into a room while somehow capturing
@@ -460,9 +88,9 @@
       <p class="testimonial-attr">Emma &amp; James &nbsp;&middot;&nbsp; Hudson Valley, 2025</p>
     </div>
 
-    <div class="testimonial-separator" style="margin-top: 80px;"></div>
+    <div class="testimonial-separator reveal"></div>
 
-    <div class="testimonial">
+    <div class="testimonial reveal">
       <blockquote class="testimonial-quote">
         &ldquo;She moved through our day like a shadow — always present, never intrusive.
         Every photograph feels like a memory we didn&rsquo;t know we were making.&rdquo;
@@ -470,9 +98,9 @@
       <p class="testimonial-attr">Sophie &amp; Luca &nbsp;&middot;&nbsp; Florence, 2024</p>
     </div>
 
-    <div class="testimonial-separator" style="margin-top: 80px;"></div>
+    <div class="testimonial-separator reveal"></div>
 
-    <div class="testimonial">
+    <div class="testimonial reveal">
       <blockquote class="testimonial-quote">
         &ldquo;Working with Karina felt completely natural from the very first moment.
         She has a rare talent for putting people at ease, and it shows in every frame.&rdquo;
@@ -489,50 +117,6 @@
     <p>&copy; 2026 Karina Photography</p>
   </footer>
 
-  <script>
-    const navToggle = document.getElementById('navToggle');
-    const navLinks  = document.getElementById('navLinks');
-
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      navToggle.classList.toggle('open');
-    });
-
-    function closeNav() {
-      navLinks.classList.remove('open');
-      navToggle.classList.remove('open');
-    }
-
-    document.addEventListener('click', (e) => {
-      if (navLinks.classList.contains('open') &&
-          !navLinks.contains(e.target) &&
-          !navToggle.contains(e.target)) closeNav();
-    });
-
-    // ── Scroll reveal ──
-    (function () {
-      const els = [...document.querySelectorAll([
-        '.section-label', '.page-header h1', '.page-header .tagline',
-        '.header-rule', '.headshot-wrap', '.bio-name', '.bio-text p',
-        '.testimonial', '.testimonial-separator', '.divider',
-      ].join(', '))];
-      els.forEach(el => el.classList.add('reveal'));
-
-      document.querySelectorAll('.bio-text').forEach(parent => {
-        parent.querySelectorAll('p').forEach((el, i) => {
-          el.style.transitionDelay = `${i * 0.14}s`;
-        });
-      });
-
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-        });
-      }, { threshold: 0.12 });
-
-      els.forEach(el => io.observe(el));
-    }());
-  </script>
 
   <button class="scroll-top" id="scrollTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -540,18 +124,6 @@
     </svg>
   </button>
 
-  <script>
-    // ── Scroll to top ──
-    (function () {
-      const btn = document.getElementById('scrollTop');
-      window.addEventListener('scroll', () => {
-        btn.classList.toggle('visible', window.scrollY > 400);
-      }, { passive: true });
-      btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }());
-  </script>
 
 </body>
 </html>

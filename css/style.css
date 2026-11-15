@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Karina — shared stylesheet
+   Styles common to every page. Page-specific styles live in
+   css/<page>.css, which each page loads after this file.
+   ========================================================================== */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  padding: 28px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: 'Viaoda Libre', serif;
+  font-size: 1.35rem;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 44px;
+}
+
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover  { opacity: 0.5; }
+.nav-links a.active { opacity: 0.4; border-bottom: 1px solid rgba(255,255,255,0.45); padding-bottom: 3px; pointer-events: none; }
+
+/* ── Hamburger (mobile) ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 300;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: #ffffff;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+  nav { padding: 22px 24px; }
+
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 72%;
+    max-width: 300px;
+    height: 100vh;
+    background: #000000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    border-left: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .nav-links.open { right: 0; }
+  .nav-links a    { font-size: 0.9rem; letter-spacing: 0.22em; }
+}
+
+/* ── Section label ── */
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 26px;
+}
+
+/* ── Page header (gallery, contact) ── */
+.page-header {
+  padding: 160px 56px 76px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: 'Viaoda Libre', serif;
+  font-size: clamp(3.2rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 22px;
+}
+
+.page-header .tagline {
+  font-family: 'Pinyon Script', cursive;
+  font-style: italic;
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  color: rgba(255,255,255,0.65);
+}
+
+.header-rule {
+  width: 1px;
+  height: 56px;
+  background: rgba(255,255,255,0.15);
+  margin: 52px auto 0;
+}
+
+@media (max-width: 768px) {
+  .page-header { padding: 130px 28px 60px; }
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.09);
+  padding: 40px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-name {
+  font-family: 'Viaoda Libre', serif;
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.55);
+}
+
+footer p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 36px 28px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ── Scroll reveal ──
+   Elements carry class="reveal" in the markup. They are only hidden when
+   main.js has stamped <html class="js"> (it does so before first paint),
+   so content stays visible if the script fails to load. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.js .reveal.in-view { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Scroll to top ── */
+.scroll-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, background 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+}
+
+.scroll-top svg {
+  width: 14px;
+  height: 14px;
+  stroke: #000000;
+  transition: stroke 0.25s ease;
+  flex-shrink: 0;
+}
+
+.scroll-top.visible       { opacity: 1; pointer-events: auto; }
+.scroll-top:hover         { background: #000000; transform: translateY(-3px); }
+.scroll-top:hover svg     { stroke: #ffffff; }
+.scroll-top:focus-visible { outline: 1px solid rgba(255,255,255,0.5); outline-offset: 4px; }
+
+/* ── Watermark ── */
+.watermark {
+  position: fixed;
+  top: 50%;
+  z-index: 50;
+  pointer-events: none;
+  user-select: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+}
+
+.watermark-left  { left: 56px;  transform: translateY(-50%) rotate(180deg); }
+.watermark-right { right: 56px; transform: translateY(-50%); }
+
+@media (max-width: 768px) {
+  .watermark { font-size: 0.8rem; letter-spacing: 0.3em; }
+  .watermark-left  { left: 2px; }
+  .watermark-right { right: 2px; }
+}

@@ -10,481 +10,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=Pinyon+Script&family=Viaoda+Libre&display=swap" rel="stylesheet">
 
-  <style>
-    /* ── Reset ── */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: #000000;
-      color: #ffffff;
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ── Navigation ── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 200;
-      padding: 28px 56px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-logo {
-      font-family: 'Viaoda Libre', serif;
-      font-size: 1.35rem;
-      color: #ffffff;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 44px;
-    }
-
-    .nav-links a {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: #ffffff;
-      text-decoration: none;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      transition: opacity 0.2s;
-    }
-
-    .nav-links a:hover {
-      opacity: 0.5;
-    }
-
-    /* ── Hamburger (mobile) ── */
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 300;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 1px;
-      background: #ffffff;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-
-    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      min-height: 600px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      /* Replace the URL below with your own hero image */
-      background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1800&q=80');
-      background-size: cover;
-      background-position: center;
-      filter: grayscale(100%);
-      transform: scale(1.04);
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.58);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 24px;
-    }
-
-    .hero-name {
-      font-family: 'Viaoda Libre', serif;
-      font-size: clamp(5.5rem, 16vw, 12rem);
-      color: #ffffff;
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      margin-bottom: 20px;
-    }
-
-    .hero-tagline {
-      font-family: 'Pinyon Script', cursive;
-      font-style: italic;
-      font-size: clamp(1.9rem, 4.8vw, 3.8rem);
-      color: #ffffff;
-      opacity: 0.88;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── Scroll hint ── */
-    .scroll-hint {
-      position: absolute;
-      bottom: 44px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .scroll-hint span {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.35);
-      transform-origin: top;
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.2; transform: scaleY(0.5); }
-      55%       { opacity: 1;   transform: scaleY(1); }
-    }
-
-    /* ── Intro ── */
-    .intro {
-      padding: 110px 48px 90px;
-      max-width: 820px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .section-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.38);
-      margin-bottom: 36px;
-    }
-
-    .intro h2 {
-      font-family: 'Viaoda Libre', serif;
-      font-size: clamp(1.9rem, 3.8vw, 2.9rem);
-      font-weight: 400;
-      line-height: 1.22;
-      margin-bottom: 32px;
-    }
-
-    .intro p {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.02rem;
-      font-weight: 300;
-      line-height: 1.9;
-      color: rgba(255, 255, 255, 0.68);
-      max-width: 660px;
-      margin: 0 auto;
-    }
-
-    /* ── Divider ── */
-    .divider {
-      width: 1px;
-      height: 80px;
-      background: rgba(255, 255, 255, 0.14);
-      margin: 0 auto 88px;
-    }
-
-    /* ── Gallery ── */
-    .gallery {
-      padding: 0 48px 130px;
-    }
-
-    .gallery-header {
-      text-align: center;
-      margin-bottom: 52px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      max-width: 1240px;
-      margin: 0 auto;
-    }
-
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(100%);
-      display: block;
-      transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-
-    .gallery-item-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0);
-      display: flex;
-      align-items: flex-end;
-      padding: 26px;
-      transition: background 0.4s ease;
-    }
-
-    .gallery-item:hover .gallery-item-overlay {
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    .gallery-item-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 300;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #ffffff;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .gallery-item:hover .gallery-item-label {
-      opacity: 0.85;
-      transform: translateY(0);
-    }
-
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
-      padding: 40px 56px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-name {
-      font-family: 'Viaoda Libre', serif;
-      font-size: 1.25rem;
-      color: rgba(255, 255, 255, 0.55);
-    }
-
-    footer p {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .gallery-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        padding: 22px 24px;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 72%;
-        max-width: 300px;
-        height: 100vh;
-        background: #000000;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 48px;
-        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-        border-left: 1px solid rgba(255, 255, 255, 0.07);
-      }
-
-      .nav-links.open {
-        right: 0;
-      }
-
-      .nav-links a {
-        font-size: 0.9rem;
-        letter-spacing: 0.22em;
-      }
-
-      .intro {
-        padding: 80px 28px 70px;
-      }
-
-      .gallery {
-        padding: 0 20px 90px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .gallery-item {
-        aspect-ratio: 16 / 10;
-      }
-
-      footer {
-        padding: 36px 28px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .gallery-item {
-        aspect-ratio: 4 / 3;
-      }
-    }
-
-    /* ── Animations ── */
-    @keyframes heroFadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes heroFadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    .hero-name    { animation: heroFadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.10s both; }
-    .hero-tagline { animation: heroFadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.38s both; }
-    .scroll-hint  { animation: heroFadeIn 0.9s ease 0.72s both; }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .reveal.in-view { opacity: 1; transform: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-name, .hero-tagline, .scroll-hint { animation: none; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-    }
-
-    /* ── Scroll to top ── */
-    .scroll-top {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 1px solid #ffffff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease, background 0.25s ease, transform 0.25s ease;
-      z-index: 100;
-    }
-
-    .scroll-top svg {
-      width: 14px;
-      height: 14px;
-      stroke: #000000;
-      transition: stroke 0.25s ease;
-      flex-shrink: 0;
-    }
-
-    .scroll-top.visible       { opacity: 1; pointer-events: auto; }
-    .scroll-top:hover         { background: #000000; transform: translateY(-3px); }
-    .scroll-top:hover svg     { stroke: #ffffff; }
-    .scroll-top:focus-visible { outline: 1px solid rgba(255,255,255,0.5); outline-offset: 4px; }
-
-    /* ── Watermark ── */
-    .watermark {
-      position: fixed;
-      top: 50%;
-      z-index: 50;
-      pointer-events: none;
-      user-select: none;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.25);
-      white-space: nowrap;
-      writing-mode: vertical-rl;
-    }
-
-    .watermark-left  { left: 56px;  transform: translateY(-50%) rotate(180deg); }
-    .watermark-right { right: 56px; transform: translateY(-50%); }
-
-    @media (max-width: 768px) {
-      .watermark { font-size: 0.8rem; letter-spacing: 0.3em; }
-      .watermark-left  { left: 2px; }
-      .watermark-right { right: 2px; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/main.js"></script>
 </head>
-<body>
+<body class="page-home">
 
   <!-- Watermark -->
   <div class="watermark watermark-left">THIS IS A DEMO</div>
@@ -499,10 +29,10 @@
       <span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html"   onclick="closeNav()" class="active">Home</a></li>
-      <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
-      <li><a href="about.html"   onclick="closeNav()">About</a></li>
-      <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
@@ -522,9 +52,9 @@
 
   <!-- Intro -->
   <section class="intro" id="about">
-    <p class="section-label">The Art of Love</p>
-    <h2>Every love story deserves to be told beautifully.</h2>
-    <p>
+    <p class="section-label reveal">The Art of Love</p>
+    <h2 class="reveal">Every love story deserves to be told beautifully.</h2>
+    <p class="reveal">
       I am a wedding photographer dedicated to capturing the quiet glances, the tears of joy,
       and every unscripted moment that makes your day uniquely yours. My work blends
       fine-art aesthetics with documentary storytelling — creating timeless images
@@ -532,16 +62,16 @@
     </p>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider reveal"></div>
 
   <!-- Gallery -->
   <section class="gallery" id="gallery">
     <div class="gallery-header">
-      <p class="section-label">Selected Work</p>
+      <p class="section-label reveal">Selected Work</p>
     </div>
     <div class="gallery-grid">
 
-      <div class="gallery-item">
+      <div class="gallery-item reveal">
         <!-- Replace with your own portrait image -->
         <img
           src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80"
@@ -551,7 +81,7 @@
         </div>
       </div>
 
-      <div class="gallery-item">
+      <div class="gallery-item reveal">
         <!-- Replace with your own ceremony image -->
         <img
           src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&q=80"
@@ -561,7 +91,7 @@
         </div>
       </div>
 
-      <div class="gallery-item">
+      <div class="gallery-item reveal">
         <!-- Replace with your own details image -->
         <img
           src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80"
@@ -581,50 +111,6 @@
     <p>&copy; 2026 Karina Photography</p>
   </footer>
 
-  <script>
-    const toggle = document.getElementById('navToggle');
-    const links  = document.getElementById('navLinks');
-
-    toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
-      toggle.classList.toggle('open');
-    });
-
-    function closeNav() {
-      links.classList.remove('open');
-      toggle.classList.remove('open');
-    }
-
-    document.addEventListener('click', (e) => {
-      if (links.classList.contains('open') &&
-          !links.contains(e.target) &&
-          !toggle.contains(e.target)) {
-        closeNav();
-      }
-    });
-
-    // ── Scroll reveal ──
-    (function () {
-      const els = [...document.querySelectorAll(
-        '.section-label, .intro h2, .intro p, .gallery-item, .divider'
-      )];
-      els.forEach(el => el.classList.add('reveal'));
-
-      document.querySelectorAll('.gallery-grid').forEach(parent => {
-        parent.querySelectorAll('.gallery-item').forEach((el, i) => {
-          el.style.transitionDelay = `${i * 0.12}s`;
-        });
-      });
-
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-        });
-      }, { threshold: 0.12 });
-
-      els.forEach(el => io.observe(el));
-    }());
-  </script>
 
   <button class="scroll-top" id="scrollTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -632,18 +118,6 @@
     </svg>
   </button>
 
-  <script>
-    // ── Scroll to top ──
-    (function () {
-      const btn = document.getElementById('scrollTop');
-      window.addEventListener('scroll', () => {
-        btn.classList.toggle('visible', window.scrollY > 400);
-      }, { passive: true });
-      btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }());
-  </script>
 
 </body>
 </html>

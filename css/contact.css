@@ -1,0 +1,199 @@
+/* ==========================================================================
+   Contact (contact.html) — loaded after style.css
+   ========================================================================== */
+
+/* Sticky footer layout */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Page header overrides ── */
+.page-header          { padding: 160px 56px 72px; }
+.page-header .tagline { color: rgba(255,255,255,0.62); }
+
+/* ── Form area ── */
+.contact-wrap {
+  flex: 1;
+  padding: 72px 24px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Visually hidden, still read by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Form ── */
+#contactForm {
+  width: 100%;
+  max-width: 560px;
+  transition: opacity 0.4s ease;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 52px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 12px 0;
+  outline: none;
+  display: block;
+  transition: border-bottom-color 0.3s ease;
+  caret-color: #ffffff;
+}
+
+.field textarea {
+  resize: none;
+  min-height: 140px;
+  line-height: 1.8;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(255,255,255,0.28);
+  font-weight: 300;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-bottom-color: rgba(255,255,255,0.85);
+}
+
+/* animated underline on focus */
+.field::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #ffffff;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.field:focus-within::after { width: 100%; }
+
+/* ── Submit button ── */
+.submit-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 18px 0;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.28s ease, color 0.28s ease;
+}
+
+.submit-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.submit-btn:focus-visible {
+  outline: 1px solid rgba(255,255,255,0.6);
+  outline-offset: 4px;
+}
+
+/* ── Thank-you state ── */
+.thank-you {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  padding: 60px 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.thank-you.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.thank-you-main {
+  font-family: 'Pinyon Script', cursive;
+  font-style: italic;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.thank-you-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+
+/* ── Instagram link ── */
+.social-wrap {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.social-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+.instagram-link {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.instagram-link:hover { color: #ffffff; }
+
+.instagram-link svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page-header { padding: 130px 28px 56px; }
+
+  .contact-wrap { padding: 56px 28px 100px; }
+
+  .field { margin-bottom: 44px; }
+}
